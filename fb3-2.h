@@ -69,7 +69,7 @@ struct ufncall{         //用户自定义函数
 struct flow{            //控制流表达式
     int nodetype;       //类型I或W
     struct ast *cond;   //条件
-    struct ast *t1;     //then分支或do语句
+    struct ast *tl;     //then分支或do语句
     struct ast *el;     //可选else分支
 };
 
