@@ -329,4 +329,27 @@ static double calluser(struct ufncall *f){
             args = NULL;
         }
     }
+
+    /* save old values of dummies, assign new ones */
+    sl = fn->syms;
+    for(i=0; i<nargs; i++){
+        struct symbol *s = sl->sym;
+        oldval[i] = s->value;
+        s->value = newval[i];
+        sl = sl->next;
+    }
+    free(newval);
+
+    /* evaluate the function */
+    v = eval(fn->func);
+
+    /* put the real values of the dymmies back */
+    sl = fn->syms;
+    for(i=0; i<nargs; i++){
+        struct symbol *s = sl->sym;
+        s->value = oldval[i];
+        sl = sl->next;
+    }
+    free(oldval);
+    return v;
 }
