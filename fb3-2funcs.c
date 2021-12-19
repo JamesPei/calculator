@@ -176,6 +176,15 @@ void treefree(struct ast *a){
     free(a);    /* always free the node itself */
 }
 
+void yyerror(char *s, ...){
+    va_list ap;
+    va_start(ap, s);
+
+    fprintf(stderr, "%d:error:", yylineno);
+    vfprintf(stderr, s, ap);
+    fprintf(stderr, "\n");
+}
+
 struct symlist *newsymlist(struct symbol *sym, struct symlist *next){
     struct symlist *sl = malloc(sizeof(struct symlist));
     if(!sl){
@@ -363,4 +372,9 @@ static double calluser(struct ufncall *f){
     }
     free(oldval);
     return v;
+}
+
+int main(){
+    printf(">");
+    return yyparse();
 }
