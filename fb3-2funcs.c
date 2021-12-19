@@ -94,6 +94,17 @@ struct ast* newcall(struct symbol *s, struct ast *l){
     return (struct ast *)a;
 }
 
+struct ast* newref(struct symbol *s){
+    struct symref *a = malloc(sizeof(struct symref));
+    if(!a){
+        yyerror("Out of space");
+        exit(0);
+    }
+    a->nodetype = 'N';
+    a->s = s;
+    return (struct ast *)a;
+}
+
 struct ast* newasgn(struct symbol *s, struct ast *v){
     struct symasgn *a = malloc(sizeof(struct symasgn));
     if(!a){
